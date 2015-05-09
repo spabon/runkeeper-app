@@ -27,7 +27,8 @@ class WalksController < ApplicationController
   # POST /walks.json
   def create
     @walk = Walk.new(walk_params)
-
+    @walk.user_id = current_user.id
+    
     respond_to do |format|
       if @walk.save
         format.html { redirect_to @walk, notice: 'Walk was successfully created.' }
