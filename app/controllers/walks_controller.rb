@@ -1,6 +1,7 @@
 class WalksController < ApplicationController
   before_action :set_walk, only: [:show, :edit, :update, :destroy]
   before_action :get_users, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   
   # GET /walks
   # GET /walks.json

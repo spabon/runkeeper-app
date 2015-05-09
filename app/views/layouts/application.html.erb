@@ -27,12 +27,21 @@
       <section class="top-bar-section">
         <!-- Right Nav Section -->
         <ul class="right">
+          <% if user_signed_in? %>
           <li class="active">
-            <a href="#">Sign Up</a>
+            <%= link_to current_user.fullname, edit_user_registration_path %>
           </li>
           <li>
-            <a href="#">Sign In</a>
+            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
           </li>
+          <% else %>
+          <li class="active">
+            <%= link_to 'Sign Up', new_user_registration_path %>
+          </li>
+          <li>
+            <%= link_to 'Sign In', new_user_session_path %>
+          </li>
+          <% end %>
         </ul>
     
         <!-- Left Nav Section -->
@@ -40,15 +49,20 @@
           <li>
             <%= link_to 'Walks', walks_path %>
           </li>
-          <li>
-            <%= link_to 'Users', users_path %>
-          </li>
         </ul>
       </section>
     </nav>
 
     <div class="row">
       <div class="columns large-12">
+        
+        <% flash.each do |type, message| %>
+        <div data-alert class="alert-box radius <%= flass_class type %>">
+          <%= message %>
+          <a href="#" class="close">&times;</a>
+        </div>
+        <% end %>
+        
         <%= yield %>
       </div>
     </div>
